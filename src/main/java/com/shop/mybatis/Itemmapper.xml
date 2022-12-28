@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.ItemMapper">
+	
+	<select id="select" parameterType="Integer" resultType="Item">
+		select *from item where id=#{id};
+	</select>
+	<select id="selectall" resultType="Item">
+		select *from item;
+	</select>
+	<select id="insert" parameterType="Item">
+		insert into item values(#{id},#{name},#{price},#{imgname},#{rdate});
+	</select>
+	<select id="update" parameterType="Item">
+		update item set name=#{name},price=#{price},imgname=#{imgname},rdate=#{rdate} where id=#{id};
+	</select>
+	<select id="delete" parameterType="Integer">
+		delete from item where id=#{id};
+	</select>
+	
+	<select id="searchItem" parameterType="String" resultType="Item">
+		select *from item where name like concat('%',#{txt},'%');
+	</select>
+	
+	
+</mapper>

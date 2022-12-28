@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.CartMapper">
+	
+	
+	<insert id="insert" parameterType="Cart">
+		insert into cart values(id,#{cust_id},#{item_id},#{cnt},now())
+	</insert>
+	
+	<update id="update">
+		update cart set cnt=#{cnt} where id=#{id} 
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		delete from cart where id=#{id}
+	</delete>
+	<select id="select" parameterType="Integer" resultType="Cart">
+	SELECT ca.id, cu.id AS cust_id, cu.name AS cust_name,ca.rdate,
+	it.name AS item_name, it.price AS item_price,
+	it.imgname, ca.cnt, (ca.cnt * it.price) AS total
+	FROM cart ca
+	INNER JOIN cust cu ON ca.cust_id = cu.id
+	INNER JOIN item it ON ca.item_id = it.id
+	where ca.id=#{id}
+	</select>
+	<select id="selectall" resultType="Cart">
+	SELECT ca.id, cu.id AS cust_id, ca.rdate,
+	it.name AS item_name, it.price AS item_price,
+	it.imgname, ca.cnt, (ca.cnt * it.price) AS total
+	FROM cart ca
+	INNER JOIN cust cu ON ca.cust_id = cu.id
+	INNER JOIN item it ON ca.item_id = it.id;
+	</select>
+	
+	<select id="myCart" parameterType="String" resultType="Cart">
+	SELECT ca.id, cu.id AS cust_id,ca.rdate,
+	it.name AS item_name, it.price AS item_price,
+	it.imgname, ca.cnt, (ca.cnt * it.price) AS total
+	FROM cart ca
+	INNER JOIN cust cu ON ca.cust_id = cu.id
+	INNER JOIN item it ON ca.item_id = it.id
+	where ca.id=#{id};
+	</select>
+	
+	
+</mapper>

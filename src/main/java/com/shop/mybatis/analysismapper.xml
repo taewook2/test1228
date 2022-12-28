@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shop.mapper.AnalysisMapper">
+	
+	<select id="getGsum" resultType="Analysis">
+		select gender,sum(price) as sum from sales group by gender;
+	</select>
+	
+	<select id="getMsum" resultType="Analysis">
+		select month(rdate) as month,sum(price) as sum from sales group by month(rdate);
+	</select>
+	
+	<select id="getMGsum" resultType="Analysis">
+		select gender,month(rdate) as month,sum(price) as sum from sales group by month(rdate),gender;
+	</select>
+	
+	
+</mapper>
